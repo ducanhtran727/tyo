@@ -27,7 +27,7 @@ export default function Home({ params }: any) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen overflow-x-hidden flex-col items-center justify-between sm:p-24">
       <CardMain />
     </main>
   )

@@ -14,10 +14,18 @@ import InfoCustomer from "./InfoCustomer"
 import InfoContactPerson from "./InfoContactPerson"
 import InfoJob from "./InfoJob"
 import InfoParent from "./InfoParent"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { ScreenSizeContext } from "@/context/ScreenSize.context"
+import { EllipsisOutlined } from "@ant-design/icons"
+import ImagesUpload from "./ImagesUpload"
+import axiosInstance from "@/api/baseRequest"
 
 const CardMain = () => {
   const [keyTab, setKeyTab] = useState("1")
+
+  const { isMobile, isTablet } = useContext(ScreenSizeContext)
+
+  const [istStudent, setIsStudent] = useState(null)
 
   const items = [
     {
@@ -40,9 +48,39 @@ const CardMain = () => {
       key: "4",
       children: <InfoContactPerson />,
     },
+    {
+      label: "Thông tin hình ảnh",
+      key: "5",
+      children: <ImagesUpload />,
+    },
   ]
 
-  const onFinish = () => {}
+  const onFinish = async (values: any) => {
+    console.log(values)
+
+    const payload = {
+      ...values,
+      istStudent,
+      images: values.images
+        .map((item: any) => {
+          return {
+            data: item.response,
+          }
+        })
+        .filter((item: any) => item?.data),
+    }
+
+    try {
+      const res = await axiosInstance.request({
+        method: "POST",
+        baseURL: "https://5d62-118-69-6-99.ngrok-free.app",
+        url: "applicants",
+        data: payload,
+      })
+
+      console.log(res, "res--------")
+    } catch {}
+  }
 
   return (
     <ConfigProvider
@@ -55,26 +93,24 @@ const CardMain = () => {
       }}
     >
       <Form
-        onFinishFailed={({errorFields}) => {
-
-          console.log(errorFields.map(item => item.name.join()),'errorFields---------')
-
+        onFinishFailed={({ errorFields }) => {
           notification.error({
             message: "Có lỗi",
-            description: `${errorFields.map(item => item.name.join()).join()} bị bỏ trống`
+            description: `Kiểm tra lại các mục có thông tin bị bỏ trống`,
           })
         }}
         layout="vertical"
         onFinish={onFinish}
       >
-        <Card className="w-[888px]">
+        <Card rootClassName="md:w-[888px] w-[calc(100vw_-_56px)] !overflow-x-hidden">
           <Tabs
             activeKey={keyTab}
-            tabPosition="left"
+            tabPosition={isMobile ? "top" : "left"}
             items={items}
             onTabClick={(key) => {
               setKeyTab(key)
             }}
+            moreIcon={<EllipsisOutlined />}
           ></Tabs>
           <div className="flex gap-4 justify-end mt-3">
             {+keyTab < 4 ? (

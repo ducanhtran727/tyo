@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <AntdRegistry>
         <ScreenSizeContextProVider>
-          <body className="mx-auto bg-white relative">
+          <body className="md:mx-auto overflow-x-hidden bg-white relative">
             <AppHeader lang={locale}  />
             {children}
           </body>

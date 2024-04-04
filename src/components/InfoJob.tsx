@@ -11,7 +11,7 @@ const InfoJob = () => {
       <Form.Item
         label="Tên và địa chỉ cty"
         rules={[{ required: true }]}
-        name={"dateCome"}
+        name={"companyName"}
       >
         <DatePicker className="w-full" />
       </Form.Item>
@@ -19,43 +19,36 @@ const InfoJob = () => {
         label="Số điện thoại nơi làm việc"
         className="w-full"
         rules={[{ required: true }]}
-        name={"name-2"}
+        name={"workPhone"}
       >
         <InputNumber className="!w-full" />
       </Form.Item>
       <Form.Item
         label="Làm việc từ tháng- năm nào"
         rules={[{ required: true }]}
-        name={"name"}
+        name={"employmentStartDate"}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Đến Nhật từ khi nào. Tháng - năm"
-        rules={[{ required: true }]}
-        name={"name-1"}
-      >
-        <RangePicker className="w-full" />
+        <DatePicker className="w-full" />
       </Form.Item>
 
       <Form.Item
         label="Cty làm về ngành, lĩnh vực gì"
         rules={[{ required: true }]}
-        name={"name-3"}
+        name={"companyIndustry"}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Vị trí làm việc bộ phận nào"
         rules={[{ required: true }]}
-        name={"name-4"}
+        name={"position"}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Lương mỗi tiếng được bao nhiêu tiền ( tháng tổng = ... ) "
         rules={[{ required: true }]}
-        name={"name-5"}
+        name={"monthlySalary"}
       >
         <Input />
       </Form.Item>
@@ -63,7 +56,7 @@ const InfoJob = () => {
       <Form.Item
         label="Thời gian làm việc từ - đến "
         rules={[{ required: true }]}
-        name={"name-5"}
+        name={"workingHours"}
       >
         <Input />
       </Form.Item>

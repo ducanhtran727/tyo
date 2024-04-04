@@ -13,21 +13,21 @@ const InfoCustomer = () => {
       <Form.Item
         label="Ngày muốn nhập nhà"
         rules={[{ required: true }]}
-        name={"dateCome"}
+        name={"desiredMoveInDate"}
       >
         <DatePicker className="w-full" />
       </Form.Item>
       <Form.Item
         label="Tên ghi bằng katakana"
         rules={[{ required: true }]}
-        name={"name"}
+        name={"katakanaName"}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Đến Nhật từ khi nào. Tháng - năm"
         rules={[{ required: true }]}
-        name={"name-1"}
+        name={"arrivalDateJapan"}
       >
         <DatePicker className="w-full" picker="month" />
       </Form.Item>
@@ -35,35 +35,35 @@ const InfoCustomer = () => {
         label="Số điện thoại tình trạng nghe gọi ok ?"
         className="w-full"
         rules={[{ required: true }]}
-        name={"name-2"}
+        name={"phoneStatus"}
       >
         <InputNumber className="!w-full" />
       </Form.Item>
       <Form.Item
         label="Email đang dùng"
         rules={[{ required: true }]}
-        name={"name-3"}
+        name={"currentEmail"}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Nhà ở hiện tại ở được bao lâu và thuê bao nhiêu tiền / tháng"
         rules={[{ required: true }]}
-        name={"name-4"}
+        name={"currentResidenceDuration"}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Địa chỉ đang sinh sống"
         rules={[{ required: true }]}
-        name={"name-5"}
+        name={"currentAddress"}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Lý do chuyển nhà là gì"
         rules={[{ required: true }]}
-        name={"name-6"}
+        name={"reasonForMoving"}
       >
         <TextArea rows={5} />
       </Form.Item>
@@ -81,21 +81,21 @@ const InfoCustomer = () => {
           <Form.Item
             label="Trường hiện tại học vào học từ khi nào"
             rules={[{ required: true }]}
-            name={"name-6"}
+            name={"currentSchool"}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Thời gian học buổi nào?"
             rules={[{ required: true }]}
-            name={"name-7"}
+            name={"schoolSchedule"}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Trường senmon-đại học sắp tới khi nào nhập học và trường địa điểm ga nào."
             rules={[{ required: true }]}
-            name={"name-8"}
+            name={"upcomingSchool"}
           >
             <Input />
           </Form.Item>

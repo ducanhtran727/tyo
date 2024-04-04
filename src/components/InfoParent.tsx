@@ -6,13 +6,13 @@ const InfoParent = () => {
       <div className="text-center text-base font-semibold mb-4">
         THÔNG TIN BỐ HOẶC MẸ
       </div>
-      <Form.Item label="Họ và tên" rules={[{ required: true }]} name={"name"}>
+      <Form.Item label="Họ và tên Bố hoặc Mẹ" rules={[{ required: true }]} name={"parentName"}>
         <Input />
       </Form.Item>
       <Form.Item
         label="Ngày tháng năm sinh"
         rules={[{ required: true }]}
-        name={"dateCome"}
+        name={"parentDateOfBirth"}
       >
         <DatePicker className="w-full" />
       </Form.Item>
@@ -20,11 +20,11 @@ const InfoParent = () => {
         label="Số điện thoại"
         className="w-full"
         rules={[{ required: true }]}
-        name={"name-2"}
+        name={"parentPhone"}
       >
         <InputNumber className="!w-full" />
       </Form.Item>
-      <Form.Item label="Địa chỉ" rules={[{ required: true }]} name={"name"}>
+      <Form.Item label="Địa chỉ" rules={[{ required: true }]} name={"parentAddress"}>
         <Input />
       </Form.Item>
     </div>

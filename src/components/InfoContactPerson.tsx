@@ -4,45 +4,42 @@ const InfoContactPerson = () => {
   return (
     <div>
       <div className="text-center text-base font-semibold mb-4">
-        THÔNG TIN BỐ HOẶC MẸ
+        THÔNG TIN NGƯỜI LIÊN LẠC KHẨN CẤP
       </div>
-      <Form.Item label="Họ và tên" rules={[{ required: true }]} name={"name"}>
+      <Form.Item
+        label="Họ và tên"
+        rules={[{ required: true }]}
+        name={"emergencyContactName"}
+      >
         <Input />
       </Form.Item>
       <Form.Item
-        label="Số điện thoại  < đã từng đăng ký thuê nhà chưa >"
+        label="Số điện thoại"
         className="w-full"
         rules={[{ required: true }]}
-        name={"name-2"}
+        name={"emergencyContactPhone"}
       >
         <InputNumber className="!w-full" />
       </Form.Item>
       <Form.Item
         label="Ngày tháng năm sinh"
         rules={[{ required: true }]}
-        name={"dateCome"}
+        name={"emergencyContactDateOfBirth"}
       >
         <DatePicker className="w-full" />
       </Form.Item>
-      <Form.Item
-        label="Số điện thoại"
-        className="w-full"
-        rules={[{ required: true }]}
-        name={"name-2"}
-      >
-        <InputNumber className="!w-full" />
-      </Form.Item>
+
       <Form.Item
         label="Địa chỉ nhà < tên toà nhà + số phòng >"
         rules={[{ required: true }]}
-        name={"name"}
+        name={"emergencyContactAddress"}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Mối quan hệ"
         rules={[{ required: true }]}
-        name={"name"}
+        name={"emergencyContactRelationship"}
       >
         <Input />
       </Form.Item>
