@@ -100,7 +100,7 @@ const UploadProductImage = ({ onChange, value }: IUploadProductImageProps) => {
           onProgress,
         }) => {
           const fmData = new FormData()
-          fmData.append("image", file)
+          fmData.append("files", file)
 
           try {
             const response = await axiosInstance.request({
