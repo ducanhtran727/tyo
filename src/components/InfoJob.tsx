@@ -13,7 +13,7 @@ const InfoJob = () => {
         rules={[{ required: true }]}
         name={"companyName"}
       >
-        <DatePicker className="w-full" />
+        <Input className="w-full" />
       </Form.Item>
       <Form.Item
         label="Số điện thoại nơi làm việc"

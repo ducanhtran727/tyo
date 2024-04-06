@@ -1,11 +1,10 @@
-"use client"
+"use client";
 
-import { Select, Modal, Form, Input } from "antd"
-import { useRouter } from "next/navigation"
-import { useState, useContext } from "react"
-import { ScreenSizeContext } from "@/context/ScreenSize.context"
-import Link from "next/link"
-
+import { Select, Modal, Form, Input } from "antd";
+import { useRouter } from "next/navigation";
+import { useState, useContext, useEffect } from "react";
+import { ScreenSizeContext } from "@/context/ScreenSize.context";
+import { AUTH_KEY } from "@/constant/nav";
 const options = [
   {
     label: "日本語",
@@ -19,22 +18,30 @@ const options = [
     label: "Tiếng Việt",
     value: "vi",
   },
-]
+];
 
 export function AppHeader({ lang }: { lang: string }) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const router = useRouter()
+  const [authData, setAuthData] = useState<any>("");
+
+  const router = useRouter();
 
   const changeLang = (lang: string) => {
-    router.push(`${lang}`)
-  }
+    router.push(`${lang}`);
+  };
 
   const onClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
-  const { isMobile, isTablet } = useContext(ScreenSizeContext)
+  const { isMobile, isTablet } = useContext(ScreenSizeContext);
+
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    setAuthData(localStorage.getItem("auth"));
+  }, []);
 
   return (
     <div className="flex z-50 justify-center md:justify-end p-4 items-center sticky top-0 left-0">
@@ -43,41 +50,76 @@ export function AppHeader({ lang }: { lang: string }) {
         defaultValue={lang}
         className="w-32"
         onChange={(val) => {
-          changeLang(val)
+          changeLang(val);
         }}
       />
-      <div
-        className="ml-4 cursor-pointer"
-        onClick={() => {
-          setOpen(true)
-        }}
-      >
-        Đăng nhập
-      </div>
+      <>
+        {typeof window !== "undefined" ? (
+          <>
+            {authData === AUTH_KEY ? (
+              <div
+                className="ml-4 cursor-pointer text-white"
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    localStorage.removeItem("auth");
+                    window.location.pathname = "en";
+                  }
+                }}
+              >
+                Đăng xuất
+              </div>
+            ) : (
+              <div
+                className="ml-4 cursor-pointer text-white"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
+                Đăng nhập
+              </div>
+            )}
+          </>
+        ) : null}
+      </>
       <Modal
         title="Đăng nhập"
         open={open}
         okText="Đăng nhập"
         cancelText="Hủy"
         onCancel={onClose}
+        onOk={() => form.submit()}
       >
-        <Form layout="vertical">
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={(values) => {
+            if (
+              values.userName === "admin" &&
+              values.currentPassword === "admin123" &&
+              typeof window !== "undefined"
+            ) {
+              localStorage.setItem("auth", "YWRtaW46YWRtaW4xMjM");
+              router.push("/en/list");
+              setOpen(false);
+            }
+          }}
+        >
           <Form.Item
             label="Tài khoản"
             name="userName"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Không được bỏ trống" }]}
           >
             <Input></Input>
           </Form.Item>
           <Form.Item
             label="Mật khẩu"
-            name="password"
-            rules={[{ required: true }]}
+            name="currentPassword"
+            rules={[{ required: true, message: "Không được bỏ trống" }]}
           >
-            <Input type="password"></Input>
+            <Input type="password" autoComplete="current-password"></Input>
           </Form.Item>
         </Form>
       </Modal>
     </div>
-  )
+  );
 }

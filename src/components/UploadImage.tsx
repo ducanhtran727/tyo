@@ -55,7 +55,7 @@ const UploadProductImage = ({ onChange, value }: IUploadProductImageProps) => {
         newFileList.map((item) => {
           return {
             ...item,
-            path: item.response?.path,
+            path: item.response,
           }
         })
       )
@@ -106,7 +106,7 @@ const UploadProductImage = ({ onChange, value }: IUploadProductImageProps) => {
             const response = await axiosInstance.request({
               url: "/media/upload-image",
               method: "POST",
-              baseURL: "https://5d62-118-69-6-99.ngrok-free.app",
+              baseURL: "http://103.72.96.110:3000",
               onUploadProgress: (event) => {
                 onProgress && onProgress(event.event)
               },

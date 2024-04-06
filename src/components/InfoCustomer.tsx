@@ -1,10 +1,7 @@
-import { Checkbox, DatePicker, Form, Input, InputNumber } from "antd"
-import TextArea from "antd/es/input/TextArea"
-import { useState } from "react"
+import { Checkbox, DatePicker, Form, Input, InputNumber } from "antd";
+import TextArea from "antd/es/input/TextArea";
 
-const InfoCustomer = () => {
-  const [istStudent, setIsStudent] = useState(false)
-
+const InfoCustomer = ({ istStudent, setIsStudent }: any) => {
   return (
     <div>
       <div className="text-center text-base font-semibold mb-4">
@@ -53,6 +50,15 @@ const InfoCustomer = () => {
       >
         <Input />
       </Form.Item>
+
+      <Form.Item
+        label="Thuê bao nhiêu tiền / tháng"
+        rules={[{ required: true }]}
+        name={"monthlyRent"}
+      >
+        <Input />
+      </Form.Item>
+
       <Form.Item
         label="Địa chỉ đang sinh sống"
         rules={[{ required: true }]}
@@ -71,7 +77,7 @@ const InfoCustomer = () => {
         <Checkbox
           checked={istStudent}
           onClick={() => {
-            setIsStudent((prev) => !prev)
+            setIsStudent(!istStudent);
           }}
         />
         <div>Có phải là học sinh ?</div>
@@ -102,7 +108,7 @@ const InfoCustomer = () => {
         </>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default InfoCustomer
+export default InfoCustomer;

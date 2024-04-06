@@ -21,10 +21,6 @@ export default function RootLayout({
 }>) {
 
 
-  const t = useTranslations("Index")
-
-
-
   return (
     <html lang="en">
       <AntdRegistry>

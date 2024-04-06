@@ -1,37 +1,36 @@
-"use client"
+"use client";
 
-import Card from "antd/es/card/Card"
-import {
-  Button,
-  Form,
-  Radio,
-  Space,
-  Tabs,
-  ConfigProvider,
-  notification,
-} from "antd"
-import InfoCustomer from "./InfoCustomer"
-import InfoContactPerson from "./InfoContactPerson"
-import InfoJob from "./InfoJob"
-import InfoParent from "./InfoParent"
-import { useState, useContext } from "react"
-import { ScreenSizeContext } from "@/context/ScreenSize.context"
-import { EllipsisOutlined } from "@ant-design/icons"
-import ImagesUpload from "./ImagesUpload"
-import axiosInstance from "@/api/baseRequest"
+import axiosInstance from "@/api/baseRequest";
+import { ScreenSizeContext } from "@/context/ScreenSize.context";
+import { EllipsisOutlined } from "@ant-design/icons";
+import { Button, ConfigProvider, Form, Tabs, notification } from "antd";
+import Card from "antd/es/card/Card";
+import { useContext, useState } from "react";
+import ImagesUpload from "./ImagesUpload";
+import InfoContactPerson from "./InfoContactPerson";
+import InfoCustomer from "./InfoCustomer";
+import InfoJob from "./InfoJob";
+import InfoParent from "./InfoParent";
 
 const CardMain = () => {
-  const [keyTab, setKeyTab] = useState("1")
+  const [keyTab, setKeyTab] = useState("1");
 
-  const { isMobile, isTablet } = useContext(ScreenSizeContext)
+  const { isMobile, isTablet } = useContext(ScreenSizeContext);
 
-  const [istStudent, setIsStudent] = useState(null)
+  const [istStudent, setIsStudent] = useState(null);
 
   const items = [
     {
       label: "Thông tin khách hàng",
       key: "1",
-      children: <InfoCustomer />,
+      children: (
+        <InfoCustomer
+          istStudent={istStudent}
+          setIsStudent={(val: any) => {
+            setIsStudent(val);
+          }}
+        />
+      ),
     },
     {
       label: "Thông tin việc làm",
@@ -53,11 +52,11 @@ const CardMain = () => {
       key: "5",
       children: <ImagesUpload />,
     },
-  ]
+  ];
+
+  const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
-    console.log(values)
-
     const payload = {
       ...values,
       istStudent,
@@ -65,39 +64,46 @@ const CardMain = () => {
         .map((item: any) => {
           return {
             data: item.response,
-          }
+          };
         })
         .filter((item: any) => item?.data),
-    }
+    };
 
     try {
       const res = await axiosInstance.request({
         method: "POST",
-        baseURL: "https://5d62-118-69-6-99.ngrok-free.app",
-        url: "applicants",
+        baseURL: "http://103.72.96.110:3000",
+        url: "/applicants",
         data: payload,
-      })
+      });
 
-      console.log(res, "res--------")
+      if (res.status === 200) {
+        form.resetFields();
+        notification.success({
+          message: "Thành công",
+          description: "Gửi thông tin thành công",
+        });
+      }
     } catch {}
-  }
+  };
 
   return (
     <ConfigProvider
       form={{
         validateMessages: {
           required: () => {
-            return "Không được bỏ trống"
+            return "Không được bỏ trống";
           },
         },
       }}
     >
       <Form
+        form={form}
         onFinishFailed={({ errorFields }) => {
           notification.error({
             message: "Có lỗi",
             description: `Kiểm tra lại các mục có thông tin bị bỏ trống`,
-          })
+          });
         }}
         layout="vertical"
         onFinish={onFinish}
@@ -108,17 +114,17 @@ const CardMain = () => {
             tabPosition={isMobile ? "top" : "left"}
             items={items}
             onTabClick={(key) => {
-              setKeyTab(key)
+              setKeyTab(key);
             }}
             moreIcon={<EllipsisOutlined />}
           ></Tabs>
           <div className="flex gap-4 justify-end mt-3">
-            {+keyTab < 4 ? (
+            {+keyTab < 5 ? (
               <Button
                 type="default"
                 size="large"
                 onClick={() => {
-                  setKeyTab((+keyTab + 1).toString())
+                  setKeyTab((+keyTab + 1).toString());
                 }}
               >
                 Bước tiếp theo
@@ -131,7 +137,7 @@ const CardMain = () => {
         </Card>
       </Form>
     </ConfigProvider>
-  )
-}
+  );
+};
 
-export default CardMain
+export default CardMain;

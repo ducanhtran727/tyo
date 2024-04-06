@@ -1,69 +1,9 @@
-"use client"
+import ListDataView from "@/components/ListDataView";
 
-import { Table ,List  } from "antd"
-import { useRouter } from "next/navigation"
-
-import { ScreenSizeContext } from "@/context/ScreenSize.context"
-import { useContext } from "react"
-
-
-export default function Home({ params }: any) {
-
-  const { isMobile, isTablet } = useContext(ScreenSizeContext)
-
-
-  const columns = [
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-    {
-      title: "wwww",
-      key: "www",
-      dataIndex: "www",
-    },
-  ]
-
-  const router = useRouter()
-
-  const changeLang = (lang: string) => {
-    router.push(`${lang}`)
-  }
-
+export default function Home({}: any) {
   return (
-    <main className="flex min-h-screen overflow-x-hidden flex-col items-center justify-between sm:p-24">
-      <Table columns={columns} />
+    <main className="flex min-h-screen overflow-x-hidden flex-col items-center  p-4 sm:p-24">
+      <ListDataView />
     </main>
-  )
+  );
 }
