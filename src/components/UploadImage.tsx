@@ -104,9 +104,9 @@ const UploadProductImage = ({ onChange, value }: IUploadProductImageProps) => {
 
           try {
             const response = await axiosInstance.request({
-              url: "/media/upload-image",
+              url: "/common/v4/upload-files",
               method: "POST",
-              baseURL: "http://103.72.96.110:3000",
+              baseURL: "https://api-v3.meeyland.com",
               onUploadProgress: (event) => {
                 onProgress && onProgress(event.event)
               },
