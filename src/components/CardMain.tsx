@@ -72,7 +72,7 @@ const CardMain = () => {
     try {
       const res = await axiosInstance.request({
         method: "POST",
-        baseURL: "http://103.72.96.110:3000",
+        baseURL: "https://demo-applicant.xyz",
         url: "/applicants",
         data: payload,
       });

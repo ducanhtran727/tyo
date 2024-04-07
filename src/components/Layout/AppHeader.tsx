@@ -1,10 +1,11 @@
 "use client";
 
-import { Select, Modal, Form, Input } from "antd";
-import { useRouter } from "next/navigation";
-import { useState, useContext, useEffect } from "react";
-import { ScreenSizeContext } from "@/context/ScreenSize.context";
 import { AUTH_KEY } from "@/constant/nav";
+import { ScreenSizeContext } from "@/context/ScreenSize.context";
+import { Form, Input, Modal, Select, notification } from "antd";
+import clsx from "clsx";
+import { usePathname, useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 const options = [
   {
     label: "日本語",
@@ -27,6 +28,8 @@ export function AppHeader({ lang }: { lang: string }) {
 
   const router = useRouter();
 
+  const params = usePathname();
+
   const changeLang = (lang: string) => {
     router.push(`${lang}`);
   };
@@ -41,7 +44,7 @@ export function AppHeader({ lang }: { lang: string }) {
 
   useEffect(() => {
     setAuthData(localStorage.getItem("auth"));
-  }, []);
+  }, [params]);
 
   return (
     <div className="flex z-50 justify-center md:justify-end p-4 items-center sticky top-0 left-0">
@@ -53,34 +56,32 @@ export function AppHeader({ lang }: { lang: string }) {
           changeLang(val);
         }}
       />
-      <>
-        {typeof window !== "undefined" ? (
-          <>
-            {authData === AUTH_KEY ? (
-              <div
-                className="ml-4 cursor-pointer text-white"
-                onClick={() => {
-                  if (typeof window !== "undefined") {
-                    localStorage.removeItem("auth");
-                    window.location.pathname = "en";
-                  }
-                }}
-              >
-                Đăng xuất
-              </div>
-            ) : (
-              <div
-                className="ml-4 cursor-pointer text-white"
-                onClick={() => {
-                  setOpen(true);
-                }}
-              >
-                Đăng nhập
-              </div>
-            )}
-          </>
-        ) : null}
-      </>
+      <div
+        className={clsx(
+          "ml-4 cursor-pointer text-white",
+          authData === AUTH_KEY ? "" : "hidden"
+        )}
+        onClick={() => {
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("auth");
+            window.location.pathname = "en";
+          }
+        }}
+      >
+        Đăng xuất
+      </div>
+
+      <div
+        className={clsx(
+          "ml-4 cursor-pointer text-white",
+          authData === AUTH_KEY ? "hidden" : ""
+        )}
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Đăng nhập
+      </div>
       <Modal
         title="Đăng nhập"
         open={open}
@@ -101,6 +102,10 @@ export function AppHeader({ lang }: { lang: string }) {
               localStorage.setItem("auth", "YWRtaW46YWRtaW4xMjM");
               router.push("/en/list");
               setOpen(false);
+            } else {
+              notification.error({
+                message: 'Sai tên tài khoản hoặc mật khẩu'
+              })
             }
           }}
         >

@@ -49,7 +49,7 @@ export default function ListDataView({ params }: any) {
 
     const res = await axiosInstance.request({
       method: "GET",
-      baseURL: "http://103.72.96.110:3000",
+      baseURL: "https://demo-applicant.xyz",
       url: "/applicants",
       params: filter,
       headers: {},

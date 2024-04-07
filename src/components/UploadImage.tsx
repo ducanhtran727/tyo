@@ -100,13 +100,13 @@ const UploadProductImage = ({ onChange, value }: IUploadProductImageProps) => {
           onProgress,
         }) => {
           const fmData = new FormData()
-          fmData.append("files", file)
+          fmData.append("image", file)
 
           try {
             const response = await axiosInstance.request({
-              url: "/common/v4/upload-files",
+              url: "/media/upload-image",
               method: "POST",
-              baseURL: "https://api-v3.meeyland.com",
+              baseURL: "https://demo-applicant.xyz",
               onUploadProgress: (event) => {
                 onProgress && onProgress(event.event)
               },
