@@ -191,7 +191,7 @@ export default function ListDataView({ params }: any) {
                 downloadImage(
                   currentData?.images?.map(
                     (item: any) =>
-                      `http://103.72.96.110:3000/images/${item?.data?.filename}`
+                      `https://demo-applicant.xyz/images/${item?.data?.filename}`
                   )
                 );
               }}
@@ -203,7 +203,7 @@ export default function ListDataView({ params }: any) {
             {currentData?.images?.map((item: any) => {
               return (
                 <Image
-                  src={`http://103.72.96.110:3000/images/${item?.data?.filename}`}
+                  src={`https://demo-applicant.xyz/images/${item?.data?.filename}`}
                   alt="'wwwww"
                   key={item}
                 />
